@@ -150,10 +150,10 @@ rtrim(alphabets, 'a');
 
 ##### Get/Manipulate URL, URI parameters or hashes.
 > - get: returns parameter(s) in a url as an object; if url is empty current url is considered; if param is empty all url parameters are returned as an object
- - getUrlWithoutHash: strips hash and return url; if url is empty current url is considered;
- - getHash: returns the hash value of an url as an object; if url is empty current url is considered;
- - parseHash: parses and returns multiple hash values of an url as an object; if url is empty current url is considered; if param is empty all url parameters are returned as an object
- - removeHash: remove hash from the address bar url
+> - getUrlWithoutHash: strips hash and return url; if url is empty current url is considered;
+> - getHash: returns the hash value of an url as an object; if url is empty current url is considered;
+> - parseHash: parses and returns multiple hash values of an url as an object; if url is empty current url is considered; if param is empty all url parameters are returned as an object
+> - removeHash: remove hash from the address bar url
  getUrlPath: get url location pathname
 
 ```javascript
@@ -182,7 +182,7 @@ htmlSanitize('&lt;html&gt;').unescape;
 //Output: <html>
 ```
 
-##### Check if the device is touch enabled.
+##### Check whether the device is touch enabled.
 
 ```javascript
 //Example:
