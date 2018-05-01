@@ -7,15 +7,15 @@ Author: Ganesh Rathinavel
 
 Requirements: es6, javascript enabled browser or node.js
 
-Version: 1.1
+Version: 1.103
 
 URL: [https://github.com/ganeshrvel/useful-js-snippets](https://github.com/ganeshrvel/useful-js-snippets)
 
-Navigate to index.js for codes.
+Navigate through 'index.js' for the codes.
 
 ### Overview:
 
-#####  Move a key-value pair to a specified index.
+#####  Move an array key-value pair to another index.
 
 ```javascript
 //Example:
@@ -25,7 +25,7 @@ value.move(0, 3);
 //Output: ["plants",undefined,undefined,"animals"]
 ```
 
-##### Wait for image load.
+##### Wait for an image to load.
 
 ```javascript
 //Example: <img src='https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png'>

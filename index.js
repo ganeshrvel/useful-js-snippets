@@ -2,7 +2,7 @@
  * License: MIT
  * Author: Ganesh Rathinavel
  * Requirements: es6, javascript enabled browser or node.js
- * Version: 1.1
+ * Version: 1.103
  */
 
 //####################################################################################################
@@ -40,7 +40,7 @@ value.move(0, 3);
 //####################################################################################################
 
 /**
- * Wait for image load.
+ * Wait for an image to load.
  * @param src
  * @returns {Promise<any>}
  */
