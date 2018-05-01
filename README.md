@@ -68,6 +68,8 @@ stripTags(
 ```javascript
 //Example:
 replaceAll('this is a test but this is another test too', 'this', 'that');
+
+//Output: that is a test but that is another test too
 ```
 
 ##### URL Sanitizer.
@@ -121,6 +123,8 @@ chainValidator(obj1, 'obj4[1][1][0][0].obj8[0].obj9'); //Output=> 0000000
 ```javascript
 //Example:
 onlyNumber(`test abc 124#$' xyz`);
+
+//Output: 124
 ```
 
 ##### Array to Object.
