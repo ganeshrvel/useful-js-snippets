@@ -15,7 +15,7 @@ Navigate to index.js for codes.
 
 ### Overview:
 
-- Move a key-value pair to a specified index.
+######  Move a key-value pair to a specified index.
 
 ```javascript
 //Example:
@@ -25,7 +25,7 @@ value.move(0, 3);
 //Output: ["plants",undefined,undefined,"animals"]
 ```
 
-- Wait for image load.
+###### Wait for image load.
 
 ```javascript
 //Example: <img src='https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png'>
@@ -40,7 +40,7 @@ catch(e => {
 });
 ```
 
-- Find the actual width of an element.
+###### Find the actual width of an element.
 >  Total width: width + margin - padding + border
 It takes the styles of its children into consideration;
 
@@ -49,13 +49,13 @@ It takes the styles of its children into consideration;
 getNetElementWidth('#logo');
 ```
 
-- Generate a lengthy random number.
+###### Generate a lengthy random number.
 ```javascript
 //Example:
 rand();
 ```
 
-- Strip HTML Tags from an input string.
+###### Strip HTML Tags from an input string.
 
 ```javascript
 //Example:
@@ -64,13 +64,13 @@ stripTags(
     `<img><span>`);
 ```
 
--  Replace all occurrences of a sub-string.
+###### Replace all occurrences of a sub-string.
 ```javascript
 //Example:
 replaceAll('this is a test but this is another test too', 'this', 'that');
 ```
 
-- URL Sanitizer.
+###### URL Sanitizer.
 > Encodes and decodes url parameters
 
 ```javascript
@@ -78,7 +78,7 @@ replaceAll('this is a test but this is another test too', 'this', 'that');
 urlSanitizer(`https://www.google.co.in/search?ei=abc&q=test+test`);
 ```
 
-- [Chained object validator.][chainValidator]
+###### Chained object validator.
 
 ```javascript
 //Example:
@@ -116,21 +116,21 @@ chainValidator(obj1, 'obj4[1][1][0][0].obj7'); //Output=> 12345
 chainValidator(obj1, 'obj4[1][1][0][0].obj8[0].obj9'); //Output=> 0000000
 ```
 
-- Return numeric value from the input string.
+###### Return numeric value from the input string.
 
 ```javascript
 //Example:
 onlyNumber(`test abc 124#$' xyz`);
 ```
 
-- Array to Object.
+###### Array to Object.
 
 ```javascript
 //Example:
 toObject([3, 5, 6]);
 ```
 
-- Strip a character from the beginning and end of the string
+###### Strip a character from the beginning and end of the string
 
 ```javascript
 //Example:
@@ -148,7 +148,7 @@ rtrim(alphabets, 'a');
 
 ```
 
-- Get/Manipulate URL, URI parameters or hashes.
+###### Get/Manipulate URL, URI parameters or hashes.
 > - get: returns parameter(s) in a url as an object; if url is empty current url is considered; if param is empty all url parameters are returned as an object
  - getUrlWithoutHash: strips hash and return url; if url is empty current url is considered;
  - getHash: returns the hash value of an url as an object; if url is empty current url is considered;
@@ -171,7 +171,7 @@ urls.getUrlPath();
 //Output: '/path1/path2'
 ```
 
- - Sanitize html tags.
+###### Sanitize html tags.
 > Escapes and unescapes html tags
 
 ```javascript
@@ -182,21 +182,21 @@ htmlSanitize('&lt;html&gt;').unescape;
 //Output: <html>
 ```
 
-- Check if the device is touch enabled.
+###### Check if the device is touch enabled.
 
 ```javascript
 //Example:
 isTouchDevice();
 ```
 
--  Detecting iOS.
+###### Detecting iOS.
 
 ```javascript
 //Example:
 isiOS();
 ```
 
-- Check whether the given variable is a function.
+###### Check whether the given variable is a function.
 
 ```javascript
 //Example:
@@ -206,7 +206,7 @@ let testFunction = function() {
 isFunction(testFunction);
 ```
 
-- Check whether the input variable is an Array.
+###### Check whether the input variable is an Array.
 
 ```javascript
 //Example:
@@ -214,7 +214,7 @@ let testArray = ['earth', 'mars', 'venus'];
 isArray(testArray);
 ```
 
-- Check whether the input variable is an Object.
+###### Check whether the input variable is an Object.
 
 ```javascript
 //Example:
@@ -228,14 +228,14 @@ let testObj = {
 isObject(testObj);
 ```
 
-- Check whether the input variable is an String.
+###### Check whether the input variable is an String.
 
 ```javascript
 //Example:
 isString('qwerty');
 ```
 
-- Check whether the variable is a JSON Object.
+###### Check whether the variable is a JSON Object.
 
 ```javascript
 //Example:
@@ -247,7 +247,7 @@ let testJson = {
 isJSON(testJson);
 ```
 
-- Change the url hash in the address bar and push the same into the browser history.
+###### Change the url hash in the address bar and push the same into the browser history.
 
 ```javascript
 //Example:
@@ -256,7 +256,7 @@ changeURLHash('test_param');
 //Output: http://www.example.com#test_param
 ```
 
-- Wait for DOM element load.
+###### Wait for DOM element load.
 
 ```javascript
 //Example:
@@ -280,7 +280,3 @@ waitForElementLoad({
 
 ##### v1.0:
 Initial Push
-
-
-
-[chainValidator]: https://github.com/ganeshrvel/useful-js-snippets#chainValidator "Chained object validator."

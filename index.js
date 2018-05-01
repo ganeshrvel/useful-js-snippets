@@ -8,7 +8,7 @@
 //####################################################################################################
 
 /**
- * Move a key-value pair to a specified index.
+ * Move an array key-value pair to another index.
  * @param oldIndex
  * @param newIndex
  * @returns {Array}
