@@ -1,89 +1,102 @@
 /**
+ * License: MIT
+ * Author: Ganesh Rathinavel
+ * Requirements: es6, javascript enabled browser or node.js
+ * Version: 1.1
+ */
+
+//####################################################################################################
+
+/**
  * Move a key-value pair to a specified index.
  * @param oldIndex
  * @param newIndex
  * @returns {Array}
  */
 
-Array.prototype.move = function (oldIndex, newIndex) {
+Array.prototype.move = function(oldIndex, newIndex) {
   while (oldIndex < 0) {
-    oldIndex += this.length
+    oldIndex += this.length;
   }
   while (newIndex < 0) {
-    newIndex += this.length
+    newIndex += this.length;
   }
   if (newIndex >= this.length) {
-    let k = newIndex - this.length
+    let k = newIndex - this.length;
     while ((k--) + 1) {
-      this.push(undefined)
+      this.push(undefined);
     }
   }
-  this.splice(newIndex, 0, this.splice(oldIndex, 1)[0])
-  return this
-}
+  this.splice(newIndex, 0, this.splice(oldIndex, 1)[0]);
+  return this;
+};
 
 //Example:
-let value = ['animals', 'plants']
-value.move(0, 3)
+let value = ['animals', 'plants'];
+value.move(0, 3);
 
 //Output: ["plants",undefined,undefined,"animals"]
 
 //####################################################################################################
 
 /**
- * Wait until the browser successfully loads an image from the url
+ * Wait for image load.
  * @param src
  * @returns {Promise<any>}
  */
-function imageLoaded (src) {
+function imageLoaded(src) {
   return new Promise(resolve => {
-    const img = new Image()
-    img.onload = () => resolve({src: src, status: 'ok'})
-    img.onerror = () => resolve({src: src, status: 'error'})
+    const img = new Image();
+    img.onload = () => resolve({src: src, status: 'ok'});
+    img.onerror = () => resolve({src: src, status: 'error'});
     
-    img.src = src
-  })
+    img.src = src;
+  });
 }
 
 //Example: <img src='https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png'>
 
-imageLoaded('https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png').then(res => {
-  console.log(`Success`)
-}).catch(e => {
-  console.error(`Error`)
-})
+imageLoaded(
+    'https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png').
+then(res => {
+  console.log(`Success`);
+}).
+catch(e => {
+  console.error(`Error`);
+});
 
 //####################################################################################################
 
 /**
- * Get the actual width of an element; It takes style of children into consideration;
+ * Get the actual width of an element; It takes the styles of its children into consideration;
  * Total width: width + margin - padding + border
  * @param selector => id or class name
  * @returns {*}
  */
 
-function getNetElementWidth (selector) {
+function getNetElementWidth(selector) {
   let elem = document.querySelectorAll(selector),
-    total = 0
+      total = 0;
   
   if (typeof document === 'undefined' || typeof window === 'undefined') {
-    return null
+    return null;
   }
   
   elem && Object.keys(elem).length > 0 && Object.keys(elem).forEach((i) => {
     let style = elem[i].currentStyle || window.getComputedStyle(elem[i]),
-      width = elem[i].offsetWidth,
-      margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight),
-      padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight),
-      border = parseFloat(style.borderLeftWidth) +
-        parseFloat(style.borderRightWidth)
-    total += (width + margin - padding + border)
-  })
-  return total
+        width = elem[i].offsetWidth,
+        margin = parseFloat(style.marginLeft) + parseFloat(style.marginRight),
+        padding = parseFloat(style.paddingLeft) +
+            parseFloat(style.paddingRight),
+        border = parseFloat(style.borderLeftWidth) +
+            parseFloat(style.borderRightWidth);
+    total += (width + margin - padding + border);
+  });
+  return total;
 }
 
 //Example:
-console.log(getNetElementWidth('#logo'))
+getNetElementWidth('#logo');
 
 //####################################################################################################
 
@@ -91,49 +104,54 @@ console.log(getNetElementWidth('#logo'))
  * Generates a lengthy random number
  * @returns {number}
  */
-function rand () {
+function rand() {
   return (Math.floor(Math.random() * 100000000) + 9999999999999) +
-    Math.random()
+      Math.random();
 }
 
 //Example:
-console.log(rand())
+rand();
 
 //####################################################################################################
 
 /**
- * Strip HTML Tags from a string input
+ * Strip HTML Tags from an input string
  * @param input; string
  * @param allowed; <img> or <span><body>
  * @returns {string}
  */
-function stripTags (input = '', allowed = '') {
-  allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join('')
-  let tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi
-  let commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi
-  return input.replace(commentsAndPhpTags, '').replace(tags, function ($0, $1) {
-    return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : ''
-  })
+function stripTags(input = '', allowed = '') {
+  allowed = (((allowed || '') + '').toLowerCase().match(/<[a-z][a-z0-9]*>/g) ||
+      []).join('');
+  let tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi;
+  let commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
+  return input.replace(commentsAndPhpTags, '').replace(tags, function($0, $1) {
+    return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
+  });
 }
 
 //Example:
-console.log(stripTags(`<img src='https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png'>`, `<img><span>`))
+stripTags(
+    `<img src='https://assets-cdn.github.com/images/modules/logos_page/GitHub-Logo.png'>`,
+    `<img><span>`);
 
 //####################################################################################################
 
 /**
- * Replace all occurrences of a string
+ * Replace all occurrences of a sub-string
  * @param str
  * @param find
  * @param replace
  * @returns {string | void | *}
  */
-function replaceAll (str, find, replace) {
-  return str.replace(new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi'), replace)
+function replaceAll(str, find, replace) {
+  return str.replace(
+      new RegExp(find.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&'), 'gi'),
+      replace);
 }
 
 //Example:
-console.log(replaceAll('this is a test but this is another test too', 'this', 'that'))
+replaceAll('this is a test but this is another test too', 'this', 'that');
 
 //####################################################################################################
 
@@ -143,63 +161,152 @@ console.log(replaceAll('this is a test but this is another test too', 'this', 't
  * @param str
  * @returns {{encode: string, decode: string}}
  */
-function urlSanitizer (str) {
+function urlSanitizer(str) {
   if (!str) {
-    str = ''
+    str = '';
   }
   return {
     encode: encodeURIComponent(str.replace(/\\\//g, '')).replace(/%20/g, '+'),
     decode: decodeURIComponent(str.replace(/\+/g, '%20')),
-  }
+  };
 }
 
 //Example:
-console.log(urlSanitizer(`https://www.google.co.in/search?ei=abc&q=test+test`))
+urlSanitizer(`https://www.google.co.in/search?ei=abc&q=test+test`);
+
+//####################################################################################################/**
+
+/** Chained object validator
+ * Validates the chained object values
+ * @returns {{encode: string, decode: string}}
+ * @param mainObj: object or array
+ * @param obj: string
+ */
+function chainValidator(mainObj, obj = null) {
+  let _return = undefined;
+  
+  if (typeof mainObj === 'undefined' || !mainObj) {
+    return _return;
+  }
+  
+  if (!obj || (Object.prototype.toString.call(obj) !== '[object String]' &&
+      obj.trim() === '')) {
+    return _return;
+  }
+  
+  let objArray = obj.split('.');
+  
+  if (!objArray || objArray.length < 1) {
+    return _return;
+  }
+  let temp = mainObj;
+  
+  objArray.map(a => {
+    if (typeof temp !== 'undefined') {
+      let _matches = a.match(/[^[\]]+(?=])/g);
+      
+      if (_matches && _matches.length > 0) {
+        
+        let aSplits = a.split('[')[0],
+            lTemp = temp[aSplits];
+        
+        _matches.map(e => {
+          if (typeof lTemp !== 'undefined' && typeof lTemp[e] !== 'undefined') {
+            return lTemp = lTemp[e];
+          }
+          lTemp = undefined;
+        });
+        return temp = lTemp;
+      }
+      else if (typeof temp[a] !== 'undefined') {
+        return temp = temp[a];
+      }
+    }
+    
+    temp = _return;
+  });
+  
+  return typeof temp !== 'undefined' ? temp : _return;
+}
+
+//Example:
+
+let obj1 = {
+  obj2: {
+    obj3: 'qwerty',
+  },
+  obj4: [ //array
+    {obj5: 'abc'},
+    [
+      {obj6: 'xyz'},
+      [
+        [
+          {
+            obj7: '12345',
+            obj8: [
+              {
+                obj9: '0000000',
+              },
+            ],
+          },
+        ],
+      ],
+    ],
+  ],
+};
+
+chainValidator(obj1, 'unknownObj'); //Output=> undefined
+chainValidator(obj1, 'obj2'); //Output=> {obj3: "qwerty"}
+chainValidator(obj1, 'obj2.obj3'); //Output=> qwerty
+chainValidator(obj1, 'obj4[0]'); //Output=> {obj5: "abc"}
+chainValidator(obj1, 'obj4[1][0].obj6'); //Output=> xyz
+chainValidator(obj1, 'obj4[1][1][0][0].obj7'); //Output=> 12345
+chainValidator(obj1, 'obj4[1][1][0][0].obj8[0].obj9'); //Output=> 0000000
 
 //####################################################################################################
 
 /**
- * Return only a Numeric value from the inputted string
+ * Return numeric value from the input string
  * @param number
  * @param allowDecimal
  * @param pattern
  * @returns Number
  */
-function onlyNumber (number = null, allowDecimal = false, pattern = /[^1-9]/g) {
+function onlyNumber(number = null, allowDecimal = false, pattern = /[^1-9]/g) {
   if (!isNaN(number)) {
-    return number
+    return number;
   }
   if (allowDecimal) {
-    pattern = /[^1-9.]/g
+    pattern = /[^1-9.]/g;
   }
-  return number.replace(new RegExp(pattern, 'gi'), '')
+  return number.replace(new RegExp(pattern, 'gi'), '');
 }
 
 //Example:
-console.log(onlyNumber(`test abc 124#$' xyz`))
+onlyNumber(`test abc 124#$' xyz`);
 
 //####################################################################################################
 
 /**
- * Array to toObject
+ * Array to Object
  * @param array
  * @returns {{}}
  */
-function toObject (array) {
+function toObject(array) {
   if (typeof array === 'undefined' || !array || array.length < 1) {
-    return {}
+    return {};
   }
-  let k = {}
+  let k = {};
   for (let i = 0; i < array.length; ++i) {
     if (array[i] !== undefined) {
-      k[i] = array[i]
+      k[i] = array[i];
     }
   }
-  return k
+  return k;
 }
 
 //Example:
-console.log(toObject([3, 5, 6]))
+toObject([3, 5, 6]);
 
 //####################################################################################################
 
@@ -208,31 +315,35 @@ console.log(toObject([3, 5, 6]))
  * @param string
  * @param search
  */
-function rtrim (string, search = '') {
-  string = string.toString()
+function rtrim(string, search = '') {
+  string = string.toString();
   if (typeof string === 'undefined' || string === null) {
-    return ''
+    return '';
   }
   if (search === '') {
-    return string.trim()
+    return string.trim();
   }
-  let regex = new RegExp('^' + search + '+|' + search + '+$', 'g')
-  return string.replace(regex, '').trim()
+  let regex = new RegExp('^' + search + '+|' + search + '+$', 'g');
+  return string.replace(regex, '').trim();
 }
 
 //Example:
-let animal = ' cat  '
-console.log(rtrim(animal))
-//Output:cat
+let animal = ' cat  ';
+rtrim(animal);
+//Output: cat
 
-let planet = 'sunsunearthsun'
-console.log(rtrim(planet))
-//Output:earth
+let planet = 'sunearthsun';
+rtrim(planet, 'sun');
+//Output: earth
+
+let alphabets = 'aaaaabaaaaa';
+rtrim(alphabets, 'a');
+//Output: b
 
 //####################################################################################################
 
 /**
- * Get/manipulate url, parameters, hashes
+ * Get/Manipulate URL, URI parameters or hashes.
  *
  * get: returns parameter(s) in a url as an object; if url is empty current url is considered; if param is empty all url parameters are returned as an object
  * getUrlWithoutHash: strips hash and return url; if url is empty current url is considered;
@@ -245,97 +356,97 @@ console.log(rtrim(planet))
  */
 
 let urls = {
-  get ({param = '', url = ''}) {
-    let data = {}
+  get({param = '', url = ''}) {
+    let data = {};
     if (url === '') {
-      url = window.location.href
+      url = window.location.href;
     }
-    url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (m, key, value) {
-      data[key] = decodeURI(value)
-    })
+    url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+      data[key] = decodeURI(value);
+    });
     
     if (param === '') {
-      return data
+      return data;
     }
     if (typeof data[param] === 'undefined') {
-      return null
+      return null;
     }
-    return data[param]
+    return data[param];
   },
   
-  getUrlWithoutHash ({url = ''}) {
+  getUrlWithoutHash({url = ''}) {
     if (url !== '') {
-      let hash = url.split('#')[0]
+      let hash = url.split('#')[0];
       if (hash) {
-        return hash
+        return hash;
       }
       else {
-        return null
+        return null;
       }
     }
-    return window.location.href.split('#')[0]
+    return window.location.href.split('#')[0];
   },
   
-  getHash: function ({url = ''}) {
+  getHash: function({url = ''}) {
     if (url !== '') {
-      let hash = url.split('#')[1]
+      let hash = url.split('#')[1];
       if (hash) {
-        return hash
+        return hash;
       }
       else {
-        return null
+        return null;
       }
     }
-    return location.hash.replace('#', '').trim()
+    return location.hash.replace('#', '').trim();
   },
   
-  parseHash ({param = '', url = ''}) {
-    let urlDATA = ''
+  parseHash({param = '', url = ''}) {
+    let urlDATA = '';
     if (url !== '') {
-      urlDATA = url
+      urlDATA = url;
     }
-    let hash = urls.getHash({url: urlDATA})
+    let hash = urls.getHash({url: urlDATA});
     if (hash === '') {
-      return null
+      return null;
     }
     let pieces = hash.split('&'),
-      data = {}, i, parts
+        data = {}, i, parts;
     for (i = 0; i < pieces.length; i++) {
-      parts = pieces[i].split('=')
+      parts = pieces[i].split('=');
       if (parts.length < 2) {
-        parts.push('')
+        parts.push('');
       }
-      data[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1])
+      data[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
     }
     if (param === '') {
-      return data
+      return data;
     }
     if (typeof data[param] === 'undefined') {
-      return null
+      return null;
     }
-    return data[param]
+    return data[param];
   },
   
-  removeHash () {
-    window.location.replace('#')
+  removeHash() {
+    window.location.replace('#');
   },
   
-  getUrlPath () {
-    return window.location.pathname
-  }
-}
+  getUrlPath() {
+    return window.location.pathname;
+  },
+};
 
 //Example:
-console.log(urls.get({}))
+urls.get({});
 //Output: {param: "value1", q: "hey"}
 
-console.log(urls.get({url: 'http://www.example.com?t=a&p=s'}))
+urls.get({url: 'http://www.example.com?t=a&p=s'});
 //Output: {t: "a", p: "s"}
 
-console.log(urls.parseHash({url: 'http://www.example.com#test1=var1&test2=var2'}))
+urls.parseHash({url: 'http://www.example.com#test1=var1&test2=var2'});
 //Output: {test1: "var1", test2: "var2"}
 
-console.log(urls.getUrlPath())
+urls.getUrlPath();
 //Output: '/path1/path2'
 
 //####################################################################################################
@@ -347,154 +458,199 @@ console.log(urls.getUrlPath())
  * @param str
  * @returns {{escape: string, unescape: string}}
  */
-function htmlSanitize (str = '') {
+function htmlSanitize(str = '') {
   return {
-    escape: str
-    .replace(/&/g, '&amp;')
-    .replace(/"/g, '&quot;')
-    .replace(/'/g, '&#39;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;'),
+    escape: str.replace(/&/g, '&amp;').
+    replace(/"/g, '&quot;').
+    replace(/'/g, '&#39;').
+    replace(/</g, '&lt;').
+    replace(/>/g, '&gt;'),
     
-    unescape: str
-    .replace(/&quot;/g, '"')
-    .replace(/&#39;/g, '\'')
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&amp;/g, '&')
-  }
+    unescape: str.replace(/&quot;/g, '"').
+    replace(/&#39;/g, '\'').
+    replace(/&lt;/g, '<').
+    replace(/&gt;/g, '>').
+    replace(/&amp;/g, '&'),
+  };
 }
 
 //Example:
-console.log(htmlSanitize('<html>').escape)
+htmlSanitize('<html>').escape;
 //Output: &lt;html&gt;
 
-console.log(htmlSanitize('&lt;html&gt;').unescape)
+htmlSanitize('&lt;html&gt;').unescape;
 //Output: <html>
 
 //####################################################################################################
 
 /**
- * Checks if the device is touch enabled
+ * Check if the device is touch enabled
  *
  * @returns {boolean}
  */
-function isTouchDevice () {
-  return (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0))
+function isTouchDevice() {
+  return (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0));
 }
+
+//Example:
+isTouchDevice();
 
 //####################################################################################################
 
 /**
- * Checks if an iOS device
+ * Detecting iOS
  *
  * @returns {boolean}
  */
-function isiOS () {
-  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream
+function isiOS() {
+  return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 }
+
+//Example:
+isiOS();
 
 //####################################################################################################
 /**
- * Checks whether the variable is a function
+ * Check whether the given variable is a function
  *
  * @param fn
  * @returns {*|boolean}
  */
-function isFunction (fn) {
-  let getType = {}
+function isFunction(fn) {
+  let getType = {};
   return fn && getType.toString.call(fn) ===
-    '[object Function]'
+      '[object Function]';
 }
+
+//Example:
+let testFunction = function() {
+  console.log('I am a function..');
+};
+isFunction(testFunction);
 
 //####################################################################################################
 /**
- * Checks whether the variable is an Array
+ * Check whether the input variable is an Array
  *
  * @param arr
  * @returns {arg is Array<any>}
  */
-function isArray (arr) {
+function isArray(arr) {
   if (!Array.isArray) {
-    Array.isArray = function (arg) {
-      return Object.prototype.toString.call(arg) === '[object Array]'
-    }
+    Array.isArray = (arg) => {
+      return Object.prototype.toString.call(arg) === '[object Array]';
+    };
   }
-  return Array.isArray(arr)
+  return Array.isArray(arr);
 }
+
+//Example:
+let testArray = ['earth', 'mars', 'venus'];
+isArray(testArray);
 
 //####################################################################################################
 /**
- * Checks whether the variable is an isObject
+ * Check whether the input variable is an Object
  *
  * @param obj
  * @returns {boolean}
  */
-
-function isObject (obj) {
-  if (obj === null) { return false}
-  return ((typeof obj === 'function') || (typeof obj === 'object'))
+function isObject(obj) {
+  if (obj === null) { return false;}
+  return ((typeof obj === 'function') || (typeof obj === 'object'));
 }
+
+//Example:
+let testObj = {
+  'window': {
+    'name': 'main_window',
+    'width': 500,
+    'height': 500,
+  },
+};
+isObject(testObj);
 
 //####################################################################################################
 /**
- * Checks whether the variable is a JSON Object
+ * Check whether the input variable is an String
+ *
+ * @param str
+ * @returns {boolean}
+ */
+function isString(str) {
+  return Object.prototype.toString.call(str) !== '[object String]';
+}
+
+//Example:
+isString('qwerty');
+
+//####################################################################################################
+/**
+ * Check whether the variable is a JSON Object
  *
  * @param string
  * @returns {*}
  */
-function isJSON (string) {
+function isJSON(string) {
   if (typeof string !== 'string') {
-    string = JSON.stringify(string)
+    string = JSON.stringify(string);
   }
   
   try {
-    let o = JSON.parse(string)
+    let o = JSON.parse(string);
     if (o && typeof o === 'object') {
-      return o
+      return o;
     }
   }
   catch (e) { }
   
-  return false
+  return false;
 }
+
+//Example:
+let testJson = {
+  'menuitem': [
+    {'value': 'New', 'onclick': 'CreateNewDoc()'},
+  ],
+};
+isJSON(testJson);
 
 //####################################################################################################
 
 /**
- * Changes the url hash in the address bar and pushes the same in the url history
+ * Change the url hash in the address bar and push the same into the browser history
  *
  * @param param
  */
-function changeURLHash (param) {
+function changeURLHash(param) {
   if (param === 'undefined' || param == null) {
-    param = ''
+    param = '';
   }
   else {
-    param = '#' + param
+    param = '#' + param;
   }
-  let scrollV, scrollH, loc = window.location
+  let scrollV, scrollH, loc = window.location;
   if ('pushState' in history) {
-    history.pushState('', document.title, loc.pathname + loc.search + param)
+    history.pushState('', document.title, loc.pathname + loc.search + param);
   }
   else {
-    scrollV = document.body.scrollTop
-    scrollH = document.body.scrollLeft
-    loc.hash = param
-    document.body.scrollTop = scrollV
-    document.body.scrollLeft = scrollH
+    scrollV = document.body.scrollTop;
+    scrollH = document.body.scrollLeft;
+    loc.hash = param;
+    document.body.scrollTop = scrollV;
+    document.body.scrollLeft = scrollH;
   }
 }
 
 //Example:
-changeURLHash('test_param')
+changeURLHash('test_param');
 
 //Output: http://www.example.com#test_param
 
 //####################################################################################################
 
 /**
- * Wait until an element is loaded into the DOM
+ * Wait for DOM element load.
  *
  * @param selector: eg: input#id
  * @param callback, callback function to execute after element is successfully loaded
@@ -502,22 +658,22 @@ changeURLHash('test_param')
  * @param time, time interval
  * @returns {*}
  */
-function waitForElementLoad ({selector, callback = () => {}, callback_beforeload = () => {}, time = 500}) {
+function waitForElementLoad({selector, callback = () => {}, callback_beforeload = () => {}, time = 500}) {
   if (!isFunction(callback)) {
-    return false
+    return false;
   }
   if (document.querySelector(selector) != null) {
-    callback()
-    return selector
+    callback();
+    return selector;
   }
   else {
-    setTimeout(function () {
-      waitForElementLoad({selector, callback, time, callback_beforeload})
-    }, time)
+    setTimeout(function() {
+      waitForElementLoad({selector, callback, time, callback_beforeload});
+    }, time);
   }
   
   if (isFunction(callback_beforeload)) {
-    callback_beforeload()
+    callback_beforeload();
   }
 }
 
@@ -525,12 +681,12 @@ function waitForElementLoad ({selector, callback = () => {}, callback_beforeload
 waitForElementLoad({
   selector: '#divID',
   callback: () => {
-    console.log(`Element is loaded into the DOM`)
+    console.log(`Element is loaded into the DOM`);
   },
   time: 200,
   beforeload_callback: () => {
-    console.log(`Waiting for the element to load`)
-  }
-})
+    console.log(`Waiting for the element to load`);
+  },
+});
 
 //####################################################################################################
