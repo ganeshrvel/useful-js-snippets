@@ -265,14 +265,14 @@ changeURLHash('test_param');
 ```javascript
 //Example:
 waitForElementLoad({
-  selector: '#divID',
-  callback: () => {
-    console.log(`Element is loaded into the DOM`);
-  },
+  selector: '#div-id',
   time: 200,
-  beforeload_callback: () => {
-    console.log(`Waiting for the element to load`);
-  },
+}).
+then(response => {
+  console.log(`Element was successfully loaded into the DOM`);
+}).
+catch(e => {
+  console.error(e);
 });
 ```
 

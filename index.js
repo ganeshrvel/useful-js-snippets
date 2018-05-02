@@ -650,43 +650,37 @@ changeURLHash('test_param');
 //####################################################################################################
 
 /**
- * Wait for DOM element load.
+ * Wait for a DOM element to load.
  *
  * @param selector: eg: input#id
- * @param callback, callback function to execute after element is successfully loaded
- * @param callback_beforeload
  * @param time, time interval
- * @returns {*}
+ * @returns Promise
  */
-function waitForElementLoad({selector, callback = () => {}, callback_beforeload = () => {}, time = 500}) {
-  if (!isFunction(callback)) {
-    return false;
-  }
-  if (document.querySelector(selector) != null) {
-    callback();
-    return selector;
-  }
-  else {
-    setTimeout(() => {
-      waitForElementLoad({selector, callback, time, callback_beforeload});
+let waitForElementLoad = (({selector, time = 500}) => {
+  return new Promise((resolve, reject) => {
+    if (typeof selector === 'undefined' || selector === null) {
+      return reject(null);
+    }
+    
+    let _interval = setInterval(() => {
+      if (document.querySelector(selector) != null) {
+        clearInterval(_interval);
+        return resolve(document.querySelector(selector));
+      }
     }, time);
-  }
-  
-  if (isFunction(callback_beforeload)) {
-    callback_beforeload();
-  }
-}
+  });
+});
 
 //Example:
 waitForElementLoad({
-  selector: '#divID',
-  callback: () => {
-    console.log(`Element is loaded into the DOM`);
-  },
+  selector: '#div-id',
   time: 200,
-  beforeload_callback: () => {
-    console.log(`Waiting for the element to load`);
-  },
+}).
+then(response => {
+  console.log(`Element was successfully loaded into the DOM`);
+}).
+catch(e => {
+  console.error(e);
 });
 
 //####################################################################################################
