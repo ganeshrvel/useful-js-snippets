@@ -7,7 +7,7 @@ Author: Ganesh Rathinavel
 
 Requirements: es6, javascript enabled browser or node.js
 
-Version: 1.103
+Version: 1.11
 
 URL: [https://github.com/ganeshrvel/useful-js-snippets](https://github.com/ganeshrvel/useful-js-snippets)
 
@@ -41,8 +41,8 @@ catch(e => {
 ```
 
 ##### Find the actual width of an element.
->  Total width: width + margin - padding + border
-It takes the styles of its children into consideration;
+> Total width: (width + margin - padding + border).
+> It takes the styles of its children into consideration;
 
 ```javascript
 //Example:
@@ -86,36 +86,36 @@ urlSanitizer(`https://www.google.co.in/search?ei=abc&q=test+test`);
 //Example:
 
 let obj1 = {
-  obj2: {
-    obj3: 'qwerty',
-  },
-  obj4: [ //array
-    {obj5: 'abc'},
-    [
-      {obj6: 'xyz'},
-      [
+      key2: {
+        key3: 'qwerty',
+      },
+      key4: [ //array
+        {key5: 'abc'},
         [
-          {
-            obj7: '12345',
-            obj8: [
+          {key6: 'xyz'},
+          [
+            [
               {
-                obj9: '0000000',
+                key7: 12345,
+                key8: [
+                  {
+                    key9: '0000000',
+                  },
+                ],
               },
             ],
-          },
+          ],
         ],
       ],
-    ],
-  ],
-};
+    };
 
-chainValidator(obj1, 'unknownObj'); //Output=> undefined
-chainValidator(obj1, 'obj2'); //Output=> {obj3: "qwerty"}
-chainValidator(obj1, 'obj2.obj3'); //Output=> qwerty
-chainValidator(obj1, 'obj4[0]'); //Output=> {obj5: "abc"}
-chainValidator(obj1, 'obj4[1][0].obj6'); //Output=> xyz
-chainValidator(obj1, 'obj4[1][1][0][0].obj7'); //Output=> 12345
-chainValidator(obj1, 'obj4[1][1][0][0].obj8[0].obj9'); //Output=> 0000000
+chainValidator(obj1, 'unknownKey'); //Output=> undefined
+chainValidator(obj1, 'key2'); //Output=> {key3: "qwerty"}
+chainValidator(obj1, 'key2.key3'); //Output=> qwerty
+chainValidator(obj1, 'key4[0]'); //Output=> {key5: "abc"}
+chainValidator(obj1, 'key4[1][0].key6'); //Output=> xyz
+chainValidator(obj1, 'key4[1][1][0][0].key7'); //Output=> 12345
+chainValidator(obj1, 'key4[1][1][0][0].key8[0].key9'); //Output=> 0000000
 ```
 
 ##### Return numeric value from the input string.

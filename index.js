@@ -2,7 +2,7 @@
  * License: MIT
  * Author: Ganesh Rathinavel
  * Requirements: es6, javascript enabled browser or node.js
- * Version: 1.103
+ * Version: 1.11
  */
 
 //####################################################################################################
@@ -180,28 +180,28 @@ urlSanitizer(`https://www.google.co.in/search?ei=abc&q=test+test`);
  * Validates the chained object values
  * @returns {{encode: string, decode: string}}
  * @param mainObj: object or array
- * @param obj: string
+ * @param key: string
  */
-function chainValidator(mainObj, obj = null) {
+function chainValidator(mainObj, key = null) {
   let _return = undefined;
   
   if (typeof mainObj === 'undefined' || !mainObj) {
     return _return;
   }
   
-  if (!obj || (Object.prototype.toString.call(obj) !== '[object String]' &&
-      obj.trim() === '')) {
+  if (!key || (Object.prototype.toString.call(key) !== '[object String]' &&
+      key.trim() === '')) {
     return _return;
   }
   
-  let objArray = obj.split('.');
+  let keyArray = key.split('.');
   
-  if (!objArray || objArray.length < 1) {
+  if (!keyArray || keyArray.length < 1) {
     return _return;
   }
   let temp = mainObj;
   
-  objArray.map(a => {
+  keyArray.map(a => {
     if (typeof temp !== 'undefined') {
       let _matches = a.match(/[^[\]]+(?=])/g);
       
@@ -232,20 +232,20 @@ function chainValidator(mainObj, obj = null) {
 //Example:
 
 let obj1 = {
-  obj2: {
-    obj3: 'qwerty',
+  key2: {
+    key3: 'qwerty',
   },
-  obj4: [ //array
-    {obj5: 'abc'},
+  key4: [ //array
+    {key5: 'abc'},
     [
-      {obj6: 'xyz'},
+      {key6: 'xyz'},
       [
         [
           {
-            obj7: '12345',
-            obj8: [
+            key7: 12345,
+            key8: [
               {
-                obj9: '0000000',
+                key9: '0000000',
               },
             ],
           },
@@ -255,13 +255,13 @@ let obj1 = {
   ],
 };
 
-chainValidator(obj1, 'unknownObj'); //Output=> undefined
-chainValidator(obj1, 'obj2'); //Output=> {obj3: "qwerty"}
-chainValidator(obj1, 'obj2.obj3'); //Output=> qwerty
-chainValidator(obj1, 'obj4[0]'); //Output=> {obj5: "abc"}
-chainValidator(obj1, 'obj4[1][0].obj6'); //Output=> xyz
-chainValidator(obj1, 'obj4[1][1][0][0].obj7'); //Output=> 12345
-chainValidator(obj1, 'obj4[1][1][0][0].obj8[0].obj9'); //Output=> 0000000
+chainValidator(obj1, 'unknownKey'); //Output=> undefined
+chainValidator(obj1, 'key2'); //Output=> {key3: "qwerty"}
+chainValidator(obj1, 'key2.key3'); //Output=> qwerty
+chainValidator(obj1, 'key4[0]'); //Output=> {key5: "abc"}
+chainValidator(obj1, 'key4[1][0].key6'); //Output=> xyz
+chainValidator(obj1, 'key4[1][1][0][0].key7'); //Output=> 12345
+chainValidator(obj1, 'key4[1][1][0][0].key8[0].key9'); //Output=> 0000000
 
 //####################################################################################################
 
@@ -667,7 +667,7 @@ function waitForElementLoad({selector, callback = () => {}, callback_beforeload 
     return selector;
   }
   else {
-    setTimeout(function() {
+    setTimeout(() => {
       waitForElementLoad({selector, callback, time, callback_beforeload});
     }, time);
   }
