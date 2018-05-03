@@ -7,11 +7,39 @@ Author: Ganesh Rathinavel
 
 Requirements: es6, javascript enabled browser or node.js
 
-Version: 1.11
+Version: 1.2
 
 URL: [https://github.com/ganeshrvel/useful-js-snippets](https://github.com/ganeshrvel/useful-js-snippets)
 
-Navigate through 'index.js' for the codes.
+Navigate through 'tools.js' for the codes.
+
+### Installation:
+```javascript
+const {
+  move,
+  imageLoaded,
+  getNetElementWidth,
+  rand,
+  stripTags,
+  replaceAll,
+  urlSanitizer,
+  chainValidator,
+  onlyNumber,
+  toObject,
+  rtrim,
+  urls,
+  htmlSanitize,
+  isTouchDevice,
+  isiOS,
+  isFunction,
+  isArray,
+  isObject,
+  isString,
+  isJSON,
+  changeURLHash,
+  waitForElementLoad,
+} = require('./tools')
+```
 
 ### Overview:
 
@@ -168,6 +196,15 @@ urls.get({});
 urls.get({url: 'http://www.example.com?t=a&p=s'});
 //Output: {t: "a", p: "s"}
 
+urls.getUrlWithoutHash({});
+urls.getUrlWithoutHash({url: http://www.example.com?t=a&p=s#test'});
+//Output: http://www.example.com?t=a&p=s
+
+urls.getHash({});
+urls.getHash({url: 'http://www.example.com?t=a&p=s#test'});
+//Output: test
+
+urls.parseHash({});
 urls.parseHash({url: 'http://www.example.com#test1=var1&test2=var2'});
 //Output: {test1: "var1", test2: "var2"}
 
@@ -277,6 +314,10 @@ catch(e => {
 ```
 
 ### Changelogs:
+##### v1.2
+- Added: ES5 Module import compatible
+- Optimization: Cleaned some codes, Fixed few bugs
+
 ##### v1.1
 - Updated the README
 - Added: Chained Object Validator
